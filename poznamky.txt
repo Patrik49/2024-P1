@@ -1,0 +1,51 @@
+ instalacia django do python:
+    pip install django
+    pip list
+    výsledok:
+    
+Package  Version
+-------- -------
+asgiref  3.8.1
+Django   5.1.1
+pip      24.2
+sqlparse 0.5.1
+tzdata   2024.2
+
+2. vytvorenie django prostredia
+    django-admin startproject nazovprojektu .
+
+3. nastavenie slovenciny v settings
+
+
+LANGUAGE_CODE = 'sk'
+
+TIME_ZONE = 'Europe/Bratislava'
+
+4, spustenie vyvojoveho prostredia
+python manage.py runserver
+
+5. vytvorenie aplikacie v prostredi
+    python manage.py startapp nazovaplikacie
+
+    6. zaregistrovanie aplikacie do projektu (settings.py)
+
+7. vytvorit jednoduche views (skuska/views.py)
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello world")
+
+8. vytvoriť urlpattern:
+    8.1 mysite/urls.pyfrom django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path ('novapp/', include ('novapp.urls')),
+]
+
+
+    8.2
+    -vytvoril subor urls.py v novapp (priecinok aplikacie)
