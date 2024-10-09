@@ -1,1 +1,7 @@
 1. v projekte 03-django2 vytvorit aplikacie kalkulacka a naprogramovat kalkulacku
+pri odpocitavani bude odpocitavat mensie cislo od vacsieho
+doprogramovat mocninu 
+naštýlovať kalkulačku (html css(css pouzit v html), bootstrap)
+
+2.python.input.sk 
+naštudovat a natrenovať 1. a 2. kapitolu
