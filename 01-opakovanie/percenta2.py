@@ -36,4 +36,4 @@ percenta = vypocitaj_percenta(pocet_bodov)
 
 hodnotenie = klasifikacia(percenta)
 
-print(f"pocet bodov {pocet_bodov}, percenta {percenta}´%")
+print(f"pocet bodov {pocet_bodov}, percenta {percenta}%")

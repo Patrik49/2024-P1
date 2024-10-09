@@ -1,0 +1,1 @@
+1. v projekte 03-django2 vytvorit aplikacie kalkulacka a naprogramovat kalkulacku

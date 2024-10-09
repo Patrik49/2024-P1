@@ -49,3 +49,58 @@ urlpatterns = [
 
     8.2
     -vytvoril subor urls.py v novapp (priecinok aplikacie)
+
+9. Template
+9.1 vytvoriť v aplikacii priečinok templates/nazov_aplikacie a v nom nejaký html súbor(napríklad index.html)
+
+********views********
+from django.shortcuts import render
+from django.http import HttpResponse
+
+
+def index(request):
+    if request.method == "GET":
+        vysledok = 0
+    if request.method == "POST":
+        a= int(request.POST["a"])
+        b= int(request.POST["b"])
+        operator = request.POST["operator"]
+        if operator == "+":
+            vysledok = a+b
+        elif operator == "-":
+            vysledok = a-b
+        elif operator == "*":
+            vysledok = a*b
+        else:
+            vysledok = a/b
+    return render(request, 'skuska/index.html', dict(vysledok=vysledok))
+
+
+
+# Create your views here.
+
+*********index.html************
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulačka</title>
+</head>
+<body>
+    <h1>Kalkulačka</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="a">
+        <select name="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" name="b">
+        <input type="submit">
+    </form>
+    <h2>{{vysledok}}</h2>
+</body>
+</html>
