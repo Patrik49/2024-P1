@@ -38,7 +38,8 @@ def index(request):
     return HttpResponse("Hello world")
 
 8. vytvoriť urlpattern:
-    8.1 mysite/urls.pyfrom django.contrib import admin
+    8.1 mysite/urls.py
+from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [

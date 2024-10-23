@@ -1,0 +1,130 @@
+1. instalacia django do pythonu:
+    pip install django
+    pip list
+        Package  Version
+        -------- -------
+        asgiref  3.8.1
+        Django   5.1.1
+        pip      24.2
+        sqlparse 0.5.1
+        tzdata   2024.2
+    
+2. vytvorenie django projektu:
+    django-admin startproject nazov_projektu .
+
+3. nastavenie slovenciny:
+    nazov_projektu/settings.py
+
+line 106 LANGUAGE_CODE = 'sk'
+
+line 108 TIME_ZONE = 'Europe/Bratislava'
+
+4. spustenie dev servera:
+    python manage.py runserver
+
+    4.1 vypnutie:
+        ctrl + c
+
+5. vytvorenie aplikacie v projekte:
+    python manage.py startapp nazov_aplikacie
+
+6. zaregistrovanie aplikacie do projektu (nazov_projektu/settings.py)
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'nazov_aplikacie',  //pridaj toto line 40
+]
+
+7. vytvorit jednoduche views (nazov_projektu/views.py)
+
+    from django.shortcuts import render
+    from django.http import HttpResponse
+
+    # Create your views here.
+    def index(request):
+        return HttpResponse('Hello world')
+
+8. vytvorit urlpattern:
+    8.1 nazov_projektu/urls.py
+
+        from django.contrib import admin
+        from django.urls import path, include
+
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('skuska/', include('skuska.urls')),
+        ]
+
+    8.2
+        - vytvorit subor urls.py v nazov_aplikacie
+
+            from django.urls import path
+            from . import views
+
+            urlpatterns = [
+                path('', views.index, name = 'index'),
+]
+
+9. Template
+    9.1 vytvorit v aplikacii priecinok a podpriecinok templates/nazov_aplikacie a v nom subor html subor (napr. index.html)
+
+    <!DOCTYPE html>
+    <html lang="sk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Kalkulacka</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            <input type="text" name="a">
+            <select name="operation">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+            <input type="text" name="b">
+            <button type="submit">odoslat</button>
+        </form>
+        <h2>{{vysledok}}</h2>
+        
+    </body>
+    </html>
+
+    9.2 uprav views.py pre aplikaciu
+
+        from django.shortcuts import render
+
+    # Create your views here.
+    def index(request):
+        vysledok = 0
+        if (request.method == "GET"):
+            vysledok = 0
+
+        if (request.method == "POST"):
+            a = int(request.POST['a'])
+            b = int(request.POST['b'])
+            operation = request.POST['operation']
+            if (operation == "+"):
+                vysledok = a + b
+            elif (operation == "-"):
+                vysledok = a - b
+            elif (operation == "*"):
+                vysledok = a * b
+            elif (operation == "/"):
+                if (b == 0):
+                    vysledok = "Nemozes delit 0"
+                else:
+                    vysledok = a / b
+            else:
+                vysledok = 0
+
+        return render(request, 'skuska/index.html' , dict(vysledok=vysledok))
